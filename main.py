@@ -82,7 +82,8 @@ for c in compressions:
                 if process.returncode == 0:
                     print(process.stdout.decode('utf-8'))
                     print(f"{output_location}: Process completed successfully")
-                    break
+                    if not keep_files:
+                        break
                 else:
                     if not keep_files:
                         try:
