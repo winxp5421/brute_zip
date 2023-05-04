@@ -70,21 +70,22 @@ for c in compressions:
     for w in word_sizes:
         for s in strategies:
             output_file_name = f"output-c{c}-w{w}-s{s}.zip"
+            output_location = output_dir + output_file_name
             comp_level = int(c)
             wsize = int(w)
             comp_strategy = zlib_strategies[s]
-            with open(output_file_name, 'wb') as f_out:
+            with open(output_location, 'wb') as f_out:
                 f_out.write(deflate(data, comp_level, -wsize, comp_strategy))
             if bkcrack_enable:
-                command = [bkcrack_loc, '-p', output_file_name, '-C', cipher_zip, '-c', cipher_file]
+                command = [bkcrack_loc, '-p', output_location, '-C', cipher_zip, '-c', cipher_file]
                 process = subprocess.run(command, capture_output=True)
                 if process.returncode == 0:
                     print(process.stdout.decode('utf-8'))
-                    print(f"{output_file_name}: Process completed successfully")
+                    print(f"{output_location}: Process completed successfully")
                     break
                 else:
                     if not keep_files:
                         try:
-                            os.remove(output_file_name)
+                            os.remove(output_location)
                         except OSError as error:
                             print(f"Error deleting file: {error}")
