@@ -36,6 +36,9 @@ if bkcrack_enable:
     if cipher_file is None or cipher_zip is None:
         parser.error("If using --bkcrack, both --cipher_file and --cipher_zip are required.")
 
+if bkcrack_enable and not os.path.isfile(bkcrack_loc):
+    parser.error(bkcrack_loc + " not found.")
+
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
