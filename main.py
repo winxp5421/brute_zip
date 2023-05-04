@@ -19,7 +19,7 @@ parser.add_argument("--cipher_file", "-c",
                     required=False)
 parser.add_argument("--cipher_zip", "-C",
                     help="Zip archive containing the ciphertext entry (required with --bkcrack)", required=False)
-parser.add_argument("--bkcrack-loc", default='./bkcrack',
+parser.add_argument("--bkcrack_loc", default='./bkcrack',
                     help="Set the location of the bkcrack binary Default: './bkcrack'")
 
 
@@ -30,6 +30,7 @@ cipher_zip = args.cipher_zip
 keep_files = args.keep
 plaintext_file = args.plaintext
 output_dir = args.output_dir
+bkcrack_loc = args.bkcrack_loc
 
 if bkcrack_enable:
     if cipher_file is None or cipher_zip is None:
@@ -75,7 +76,7 @@ for c in compressions:
             with open(output_file_name, 'wb') as f_out:
                 f_out.write(deflate(data, comp_level, -wsize, comp_strategy))
             if bkcrack_enable:
-                command = ['./bkcrack', '-p', output_file_name, '-C', cipher_zip, '-c', cipher_file]
+                command = [bkcrack_loc, '-p', output_file_name, '-C', cipher_zip, '-c', cipher_file]
                 process = subprocess.run(command, capture_output=True)
                 if process.returncode == 0:
                     print(process.stdout.decode('utf-8'))
