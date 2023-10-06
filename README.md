@@ -7,5 +7,5 @@ This can be very helpful if you have a "plaintext" (unecrypted, not compressed) 
 the same file within it but, are unsure of the compression methods used to create the encrypted zip file.  
 
 This essentially tries (almost) all compression settings in zlib to "brute force" or generate deflated versions of the file/string to be used in an attempt plaintext attack the encrypted archive. 
-
+#
 Some of the zlib compression code is borrowed from the [bkcrack](https://github.com/kimci86/bkcrack) repository.
